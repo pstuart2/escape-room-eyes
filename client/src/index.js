@@ -1,5 +1,6 @@
-import { Engine, SceneLoader, Color4 } from 'babylonjs';
-import { lookDown, lookUp, returnFromDown, returnFromUp, setUpAnimations } from './lookAnimations';
+import { Color4, Engine, SceneLoader } from 'babylonjs';
+import { lookDown, lookUp, returnFromDown, returnFromUp, setUpAnimations } from './animations';
+
 
 document.addEventListener( 'DOMContentLoaded', function() {
     const canvas = document.getElementById( 'renderCanvas' ); // Get the canvas element
@@ -20,26 +21,26 @@ document.addEventListener( 'DOMContentLoaded', function() {
 
             let state = 0;
 
-            setInterval(() => {
-                switch (state) {
+            setInterval( () => {
+                switch ( state ) {
                     case 0:
                         state = 1;
-                        lookDown(newScene);
+                        lookDown( newScene );
                         break;
                     case 1:
                         state = 2;
-                        returnFromDown(newScene);
+                        returnFromDown( newScene );
                         break;
                     case 2:
                         state = 3;
-                        lookUp(newScene);
+                        lookUp( newScene );
                         break;
                     case 3:
                         state = 0;
-                        returnFromUp(newScene);
+                        returnFromUp( newScene );
                         break;
                 }
-            }, 2000);
+            }, 2000 );
 
             // Once the scene is loaded, just register a render loop to render it
             engine.runRenderLoop( function() {
