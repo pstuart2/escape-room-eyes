@@ -1,5 +1,8 @@
 import { Color4, Engine, SceneLoader } from 'babylonjs';
-import { lookLeft, lookRight, returnFromLeft, returnFromRight, setUpAnimations } from './animations';
+import {
+    lookDown, lookLeft, lookRight, lookUp, returnFromDown, returnFromLeft, returnFromRight, returnFromUp, rollEyes,
+    setUpAnimations
+} from './animations';
 
 
 document.addEventListener( 'DOMContentLoaded', function() {
@@ -24,20 +27,40 @@ document.addEventListener( 'DOMContentLoaded', function() {
             setInterval( () => {
                 switch ( state ) {
                     case 0:
-                        state = 1;
+                        state++;
                         lookRight( newScene );
                         break;
                     case 1:
-                        state = 2;
+                        state++;
                         returnFromRight( newScene );
                         break;
                     case 2:
-                        state = 3;
+                        state++;
                         lookLeft( newScene );
                         break;
                     case 3:
-                        state = 0;
+                        state++;
                         returnFromLeft( newScene );
+                        break;
+                    case 4:
+                        state++;
+                        lookUp( newScene );
+                        break;
+                    case 5:
+                        state++;
+                        returnFromUp( newScene );
+                        break;
+                    case 6:
+                        state++;
+                        lookDown( newScene );
+                        break;
+                    case 7:
+                        state++;
+                        returnFromDown( newScene );
+                        break;
+                    case 8:
+                        state = 0;
+                        rollEyes( newScene );
                         break;
                 }
             }, 2000 );
