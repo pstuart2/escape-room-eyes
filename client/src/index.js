@@ -1,5 +1,5 @@
 import { Color4, Engine, SceneLoader } from 'babylonjs';
-import { lookDown, lookUp, returnFromDown, returnFromUp, setUpAnimations } from './animations';
+import { lookLeft, lookRight, returnFromLeft, returnFromRight, setUpAnimations } from './animations';
 
 
 document.addEventListener( 'DOMContentLoaded', function() {
@@ -25,19 +25,19 @@ document.addEventListener( 'DOMContentLoaded', function() {
                 switch ( state ) {
                     case 0:
                         state = 1;
-                        lookDown( newScene );
+                        lookRight( newScene );
                         break;
                     case 1:
                         state = 2;
-                        returnFromDown( newScene );
+                        returnFromRight( newScene );
                         break;
                     case 2:
                         state = 3;
-                        lookUp( newScene );
+                        lookLeft( newScene );
                         break;
                     case 3:
                         state = 0;
-                        returnFromUp( newScene );
+                        returnFromLeft( newScene );
                         break;
                 }
             }, 2000 );
