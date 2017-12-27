@@ -1,5 +1,5 @@
 import { Engine, SceneLoader, Color4 } from 'babylonjs';
-import { lookDown, returnFromDown, setUpAnimations } from './animations';
+import { lookDown, lookUp, returnFromDown, returnFromUp, setUpAnimations } from './lookAnimations';
 
 document.addEventListener( 'DOMContentLoaded', function() {
     const canvas = document.getElementById( 'renderCanvas' ); // Get the canvas element
@@ -21,12 +21,23 @@ document.addEventListener( 'DOMContentLoaded', function() {
             let state = 0;
 
             setInterval(() => {
-                if (state === 0) {
-                    state = 1;
-                    lookDown(newScene);
-                } else {
-                    state = 0;
-                    returnFromDown(newScene);
+                switch (state) {
+                    case 0:
+                        state = 1;
+                        lookDown(newScene);
+                        break;
+                    case 1:
+                        state = 2;
+                        returnFromDown(newScene);
+                        break;
+                    case 2:
+                        state = 3;
+                        lookUp(newScene);
+                        break;
+                    case 3:
+                        state = 0;
+                        returnFromUp(newScene);
+                        break;
                 }
             }, 2000);
 
