@@ -25,45 +25,48 @@ document.addEventListener( 'DOMContentLoaded', function() {
             let state = 0;
 
             setInterval( () => {
-                switch ( state ) {
-                    case 0:
-                        state++;
-                        lookRight( newScene );
-                        break;
-                    case 1:
-                        state++;
-                        returnFromRight( newScene );
-                        break;
-                    case 2:
-                        state++;
-                        lookLeft( newScene );
-                        break;
-                    case 3:
-                        state++;
-                        returnFromLeft( newScene );
-                        break;
-                    case 4:
-                        state++;
-                        lookUp( newScene );
-                        break;
-                    case 5:
-                        state++;
-                        returnFromUp( newScene );
-                        break;
-                    case 6:
-                        state++;
-                        lookDown( newScene );
-                        break;
-                    case 7:
-                        state++;
-                        returnFromDown( newScene );
-                        break;
-                    case 8:
-                        state = 0;
-                        rollEyes( newScene );
-                        break;
-                }
-            }, 2000 );
+
+                    switch ( state ) {
+                        case 0:
+                            state++;
+                            lookRight( newScene );
+                            break;
+                        case 1:
+                            state++;
+                            returnFromRight( newScene );
+                            break;
+                        case 2:
+                            state++;
+                            lookLeft( newScene );
+                            break;
+                        case 3:
+                            state++;
+                            returnFromLeft( newScene );
+                            break;
+                        case 4:
+                            state++;
+                            lookUp( newScene );
+                            break;
+                        case 5:
+                            state++;
+                            returnFromUp( newScene );
+                            break;
+                        case 6:
+                            state++;
+                            lookDown( newScene );
+                            break;
+                        case 7:
+                            state++;
+                            returnFromDown( newScene );
+                            break;
+                        default:
+                            state = 0;
+                            rollEyes( newScene );
+                            break;
+                    }
+                },
+                2000
+            );
 
             // Once the scene is loaded, just register a render loop to render it
             engine.runRenderLoop( function() {

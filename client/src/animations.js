@@ -1,8 +1,7 @@
 import {
-    createLookDown, createLookLeft, createLookRight, createLookUp, createRaiseLowerBrows, createReturnFromDown,
-    createReturnFromLeft, createReturnFromRight, createReturnFromUp, createRollEyes, createRotateZLeft,
-    createRotateZRight
-} from './lookAnimations';
+    createLookDown, createLookLeft, createLookRight, createLookUp, createReturnFromDown, createReturnFromLeft,
+    createReturnFromRight, createReturnFromUp, createRollEyes
+} from './animationCreators';
 
 export let rightEye,
     leftEye,
@@ -18,10 +17,7 @@ const
     EYES_R_RIGHT = 5,
     EYES_LEFT = 6,
     EYES_R_LEFT = 7,
-    EYES_ROLL = 8,
-    BROWS_RAISE_LOWER = 9,
-    ROTATE_Z_RIGHT = 10,
-    ROTATE_Z_LEFT = 11;
+    EYES_ROLL = 8;
 
 const animations = [];
 
@@ -31,74 +27,56 @@ export function setUpAnimations( scene ) {
     rightBrow = scene.getMeshByName( 'Brow.R' );
     leftBrow = scene.getMeshByName( 'Brow.L' );
 
-    animations[ EYES_DOWN ] = createLookDown();
-    animations[ EYES_R_DOWN ] = createReturnFromDown();
-    animations[ EYES_UP ] = createLookUp();
-    animations[ EYES_R_UP ] = createReturnFromUp();
-    animations[ EYES_RIGHT ] = createLookRight();
-    animations[ EYES_R_RIGHT ] = createReturnFromRight();
-    animations[ EYES_LEFT ] = createLookLeft();
-    animations[ EYES_R_LEFT ] = createReturnFromLeft();
-    animations[ EYES_ROLL ] = createRollEyes();
-    animations[ BROWS_RAISE_LOWER ] = createRaiseLowerBrows( rightBrow.position );
-    animations[ ROTATE_Z_RIGHT ] = createRotateZRight();
-    animations[ ROTATE_Z_LEFT ] = createRotateZLeft();
+    animations[ EYES_DOWN ] = createLookDown(rightEye, leftEye, rightBrow, leftBrow);
+    animations[ EYES_R_DOWN ] = createReturnFromDown(rightEye, leftEye, rightBrow, leftBrow);
+    animations[ EYES_UP ] = createLookUp(rightEye, leftEye, rightBrow, leftBrow);
+    animations[ EYES_R_UP ] = createReturnFromUp(rightEye, leftEye, rightBrow, leftBrow);
+    animations[ EYES_RIGHT ] = createLookRight( rightEye, leftEye, rightBrow, leftBrow );
+    animations[ EYES_R_RIGHT ] = createReturnFromRight( rightEye, leftEye, rightBrow, leftBrow );
+    animations[ EYES_LEFT ] = createLookLeft(rightEye, leftEye, rightBrow, leftBrow);
+    animations[ EYES_R_LEFT ] = createReturnFromLeft(rightEye, leftEye, rightBrow, leftBrow);
+    animations[ EYES_ROLL ] = createRollEyes( rightEye, leftEye, rightBrow, leftBrow );
 }
 
 export function lookDown( scene ) {
-    animate( scene, rightEye, animations[ EYES_DOWN ] );
-    animate( scene, leftEye, animations[ EYES_DOWN ] );
+    animate( scene, EYES_DOWN);
 }
 
 export function returnFromDown( scene ) {
-    animate( scene, rightEye, animations[ EYES_R_DOWN ] );
-    animate( scene, leftEye, animations[ EYES_R_DOWN ] );
+    animate( scene, EYES_R_DOWN);
 }
 
 export function lookUp( scene ) {
-    animate( scene, rightEye, animations[ EYES_UP ] );
-    animate( scene, leftEye, animations[ EYES_UP ] );
+    animate( scene, EYES_UP);
 }
 
 export function returnFromUp( scene ) {
-    animate( scene, rightEye, animations[ EYES_R_UP ] );
-    animate( scene, leftEye, animations[ EYES_R_UP ] );
+    animate( scene, EYES_R_UP);
 }
 
 export function lookRight( scene ) {
-    animate( scene, rightEye, animations[ EYES_RIGHT ] );
-    animate( scene, leftEye, animations[ EYES_RIGHT ] );
-    animate( scene, rightBrow, animations[ ROTATE_Z_RIGHT ] );
+    animate( scene, EYES_RIGHT);
 }
 
 export function returnFromRight( scene ) {
-    animate( scene, rightEye, animations[ EYES_R_RIGHT ] );
-    animate( scene, leftEye, animations[ EYES_R_RIGHT ] );
-
+    animate( scene, EYES_R_RIGHT);
 }
 
 export function lookLeft( scene ) {
-    animate( scene, rightEye, animations[ EYES_LEFT ] );
-    animate( scene, leftEye, animations[ EYES_LEFT ] );
-    animate( scene, leftBrow, animations[ ROTATE_Z_LEFT ] );
+    animate( scene, EYES_LEFT);
 }
 
 export function returnFromLeft( scene ) {
-    animate( scene, rightEye, animations[ EYES_R_LEFT ] );
-    animate( scene, leftEye, animations[ EYES_R_LEFT ] );
+    animate( scene, EYES_R_LEFT);
 }
 
 export function rollEyes( scene ) {
-    animate( scene, rightEye, animations[ EYES_ROLL ] );
-    animate( scene, leftEye, animations[ EYES_ROLL ] );
-
-    animate( scene, rightBrow, animations[ BROWS_RAISE_LOWER ] );
-    animate( scene, leftBrow, animations[ BROWS_RAISE_LOWER ] );
-
-    animate( scene, rightBrow, animations[ ROTATE_Z_RIGHT ] );
-    animate( scene, leftBrow, animations[ ROTATE_Z_LEFT ] );
+    animate( scene, EYES_ROLL);
 }
 
-function animate( scene, target, animation ) {
-    scene.beginDirectAnimation( target, [ animation.animation ], animation.start, animation.end, false );
+function animate( scene, animation ) {
+    for ( let i = 0; i < animations[ animation ].length; i++ ) {
+        const a = animations[animation][i];
+        scene.beginDirectAnimation( a.target, [ a.animation ], a.start, a.end, false );
+    }
 }
